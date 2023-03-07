@@ -1,0 +1,13 @@
+
+<div class="navbar-dark bg-dark">
+
+    <div *ngIf="!userName">
+        <button class="btn btn-primary" routerLink="/login">Log In</button>
+        <button class="btn btn-primary ms-2" routerLink="/register">Register</button>
+    </div>
+
+    <div *ngIf="userName">
+        <a class="navbar-brand navbar-brand-text">{{userName}}</a>
+        <button class="btn btn-secondary ms-2" (click)="LogOut()">Log Out</button>
+    </div>
+</div>

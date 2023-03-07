@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center mt-3">
+    <form (ngSubmit)="OnSubmit()" [formGroup]="loginForm">
+        
+        <!-- radioBtns -->
+        <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="radio" name="typeRadioOptions" id="EmailRadio1" value="Email" checked (change)="ChangedHandler($event)">
+            <label class="form-check-label" for="EmailRadio1">Email</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="typeRadioOptions" id="PhoneRadio1" value="Phone" (change)="ChangedHandler($event)">
+            <label class="form-check-label" for="PhoneRadio1">Phone</label>
+        </div>
+
+        <!-- email -->
+        <div class="mb-3" *ngIf="emailSelected">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            [ngClass]="{invalid: emailControl.touched && emailControl.invalid}">
+            <div class="alert-danger"
+            *ngIf="emailControl.touched && emailControl.getError('required')">
+                Required
+            </div>
+            <div class="alert-danger"
+            *ngIf="emailControl.touched && emailControl.getError('email')">
+                Email did not match
+            </div>
+        </div>
+
+        <!-- phone -->
+        <div class="mb-3" *ngIf="!emailSelected">
+            <label for="inputPhone1" class="form-label">Phone</label>
+            <input formControlName="phone" type="phone" class="form-control" id="inputPhone1" aria-describedby="phoneHelp"
+            [ngClass]="{invalid: phoneControl.touched && phoneControl.invalid}">
+            <div class="alert-danger"
+            *ngIf="phoneControl.touched && phoneControl.getError('required')">
+                Required
+            </div>
+        </div>
+
+        <!-- password -->
+        <div class="mb-3">
+            <label for="inputPassword1" class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="inputPassword1"
+            [ngClass]="{invalid: passwordControl.touched && passwordControl.invalid}">
+
+            <div class="alert-danger"
+            *ngIf="passwordControl.touched && passwordControl.getError('required')">
+                Required
+            </div>
+
+            <div class="alert-danger"
+            *ngIf="passwordControl.touched && passwordControl.getError('minlength')">
+                Min Length is 8
+            </div>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input formControlName="rememberMe" type="checkbox" class="form-check-input" id="rememberMeCheck1">
+            <label class="form-check-label" for="rememberMeCheck1">Remember?</label>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid || pending">Login</button>
+    </form>
+</div>
