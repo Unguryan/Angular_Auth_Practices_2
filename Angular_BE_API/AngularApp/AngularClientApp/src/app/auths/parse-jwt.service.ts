@@ -11,8 +11,8 @@ export class ParseJWTService {
 
   constructor() { }
 
-  GetUserData(): Observable<TokenDataModel>{
-    var token = localStorage.getItem("token");
+  GetUserData(): Observable<TokenDataModel | undefined>{
+    var token = localStorage.getItem('token');
     if(token == null || token == undefined || token === ""){
       return new Observable<TokenDataModel>(subscriber => {
         subscriber.next(undefined);
@@ -25,10 +25,11 @@ export class ParseJWTService {
     var data = jwt_decode(token) as any;
 
     var date = data.exp * 1000;
+    user.token = token;
 
     if(new Date() > new Date(date)){
       return new Observable<TokenDataModel>(subscriber => {
-        subscriber.next(undefined);
+        subscriber.next(user);
         subscriber.complete();
       });
     }

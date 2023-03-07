@@ -41,17 +41,17 @@ export class LoginComponent implements OnInit {
     this.authService.LoginUser(this.loginForm.value).subscribe(resp => {
       this.pending = false;
       if(resp.isSuccess){
-        localStorage.setItem("token", resp.token);
+        localStorage.setItem('token', resp.token);
         
         this.isLoginSuccess = true;
         setTimeout(()=>{
-          this.router.navigate(["/"]);
-          window.location.reload();
+          this.router.navigate(["/"]).then(()=>{
+            window.location.reload();
+          });
         }, 5000);
       }
       else{
-        localStorage.removeItem("token");
-        console.log("login - remove");
+        localStorage.removeItem('token');
         this.loginError = resp.errorMessage!;
       }
     },

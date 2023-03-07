@@ -1,7 +1,9 @@
 ﻿using Auth.App.Commands.Login;
+using Auth.App.Commands.Logout;
 using Auth.App.Commands.Register;
 using Auth.Domain.ViewModels.AddUser;
 using Auth.Domain.ViewModels.Login;
+using Auth.Domain.ViewModels.Logout;
 using Auth.Domain.ViewModels.Register;
 using AutoMapper;
 using MediatR;
@@ -40,13 +42,13 @@ namespace Angular_BE_API.Controllers
             return _mapper.Map<RegisterResultViewModel>(result);
         }
 
-        //[HttpPost]
-        //[Route("logout")]
-        //public async Task<LoginResultViewModel> Logout([FromBody] LoginViewModel form)
-        //{
-        //    var result = await _mediator.Send(_mapper.Map<LoginCommand>(form));
+        [HttpPost]
+        [Route("logout")]
+        public async Task<LogoutResultViewModel> Logout([FromBody] LogoutViewModel form)
+        {
+            var result = await _mediator.Send(_mapper.Map<LogoutCommand>(form));
 
-        //    return _mapper.Map<LoginResultViewModel>(result);
-        //}
+            return _mapper.Map<LogoutResultViewModel>(result);
+        }
     }
 }

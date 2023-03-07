@@ -5,10 +5,11 @@ namespace Auth.Domain.Models
     {
         public int Id { get; set; }
 
-        public User? User { get; set; }
-
         public string? TokenData { get; set; }
 
         public DateTime ExpiredAt { get; set; }
+
+        public User? User { get; set; }
+
     }
 }

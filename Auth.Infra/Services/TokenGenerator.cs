@@ -26,8 +26,8 @@ namespace Auth.Infra.Services
                     new Claim("phone", phone),
                 }),
 
-                //Expires = longExpired ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddDays(1),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = longExpired ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddDays(1),
+                //Expires = DateTime.UtcNow.AddMinutes(1),
                 Issuer = myIssuer,
                 SigningCredentials = new SigningCredentials(mySecurityKey, SecurityAlgorithms.HmacSha256Signature)
             };

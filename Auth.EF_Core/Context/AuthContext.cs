@@ -25,7 +25,7 @@ namespace Auth.EF_Core.Context
             modelBuilder.Entity<TokenDbo>().ToTable("Tokens");
 
             modelBuilder.Entity<TokenDbo>()
-                        .HasOne(x => x.User)
+                        .HasOne(x => x.UserData)
                         .WithOne()
                         .HasForeignKey<TokenDbo>(x => x.UserId);
         }

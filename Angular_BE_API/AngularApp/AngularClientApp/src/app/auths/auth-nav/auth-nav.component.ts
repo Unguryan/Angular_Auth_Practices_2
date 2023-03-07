@@ -25,26 +25,37 @@ export class AuthNavComponent implements OnInit {
   ngOnInit() {
     this.parser.GetUserData().subscribe(resp => {
       this.user = resp;
-      console.log(this.user);
+
+      if(this.user?.name == undefined && 
+         this.user?.surname == undefined){
+          this.LogOut(false);
+         }
     });
   }
 
-  LogOut() {
+  LogOut(showMessage: boolean = true) {
     if (this.user != undefined)
       this.auth.LogOut(new LogoutViewModel(this.user?.token)).subscribe(resp => {
-        if (resp.isSuccess) {
-          this.isLogOutSuccess = true;
-        }
-        else {
-          this.logOutError = resp.errorMessage;
+        if(showMessage){
+          if (resp.isSuccess) {
+            this.isLogOutSuccess = true;
+          }
+          else {
+            this.logOutError = resp.errorMessage;
+          }
         }
 
-        localStorage.removeItem("token");
-        console.log("nav - remove");
+        localStorage.removeItem('token');
 
         setTimeout(()=>{
-          this.router.navigate(["login"]);
-          window.location.reload();
+          if(showMessage){
+            this.router.navigate(["/login"]).then(() => {
+              window.location.reload();
+            });
+          }
+          else{
+            window.location.reload();
+          }
         }, 3000);
       })
     //this.userName = "";

@@ -30,7 +30,7 @@ namespace Auth.EF_Core.Repositories
                 return null;
             }
 
-            return _mapper.Map<User>(tokenDbo.User);
+            return _mapper.Map<User>(tokenDbo.UserData);
         }
 
         public async Task<User?> AddUserAsync(RegisterViewModel vm)
@@ -113,9 +113,17 @@ namespace Auth.EF_Core.Repositories
                 return null;
             }
 
-            var res = _context.Tokens.Remove(tokenDbo);
+            var tokenToRemove = _context.Tokens.Remove(tokenDbo);
 
-            return _mapper.Map<Token>(res);
+            var res = await _context.SaveChangesAsync();
+            if (res > 0)
+            {
+                return _mapper.Map<Token>(tokenToRemove.Entity);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)

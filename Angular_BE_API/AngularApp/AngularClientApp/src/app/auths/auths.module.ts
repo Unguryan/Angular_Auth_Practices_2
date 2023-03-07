@@ -7,6 +7,8 @@ import { AuthNavComponent } from './auth-nav/auth-nav.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthNavComponent,
     LoginComponent,
     RegisterComponent,
+    AdminPanelComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,

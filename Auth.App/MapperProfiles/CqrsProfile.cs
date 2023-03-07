@@ -1,7 +1,9 @@
 ﻿using Auth.App.Commands.Login;
+using Auth.App.Commands.Logout;
 using Auth.App.Commands.Register;
 using Auth.Domain.ViewModels.AddUser;
 using Auth.Domain.ViewModels.Login;
+using Auth.Domain.ViewModels.Logout;
 using Auth.Domain.ViewModels.Register;
 using AutoMapper;
 
@@ -19,6 +21,11 @@ namespace Auth.App.MapperProfiles
             CreateMap<RegisterCommand, RegisterViewModel>()
                 .ReverseMap();
             CreateMap<RegisterCommandResult, RegisterResultViewModel>()
+                .ReverseMap();
+
+            CreateMap<LogoutCommand, LogoutViewModel>()
+                .ReverseMap();
+            CreateMap<LogoutCommandResult, LogoutResultViewModel>()
                 .ReverseMap();
         }
     }

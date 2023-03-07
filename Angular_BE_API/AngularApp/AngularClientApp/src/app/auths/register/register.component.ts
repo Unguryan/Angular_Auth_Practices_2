@@ -62,17 +62,17 @@ export class RegisterComponent implements OnInit {
     this.authService.RegisterUser(this.regForm.value).subscribe(resp => {
       this.pending = false;
       if(resp.isSuccess){
-        localStorage.setItem("token", resp.token);
+        localStorage.setItem('token', resp.token);
         
         this.isRegisterSuccess = true;
         setTimeout(()=>{
-          this.router.navigate(["/"]);
-          window.location.reload();
+          this.router.navigate(["/"]).then(()=>{
+            window.location.reload();
+          });
         }, 5000);
       }
       else{
-        localStorage.removeItem("token");
-        console.log("register - remove");
+        localStorage.removeItem('token');
         this.regError = resp.errorMessage!;
       }
     },

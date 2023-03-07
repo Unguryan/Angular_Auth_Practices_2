@@ -2,8 +2,8 @@
 using Auth.App.Services;
 using Auth.Domain.ViewModels.AddUser;
 using Auth.Domain.ViewModels.Login;
+using Auth.Domain.ViewModels.Logout;
 using Auth.Domain.ViewModels.Register;
-using AutoMapper.Execution;
 
 namespace Auth.Infra.Services
 {
@@ -72,10 +72,22 @@ namespace Auth.Infra.Services
 
             if (res == null)
             {
-                return new LoginResultViewModel(false, null, $"Server error.");
+                return new LoginResultViewModel(false, null, "Server error.");
             }
 
             return new LoginResultViewModel(true, res?.TokenData);
+        }
+
+        public async Task<LogoutResultViewModel> LogoutAsync(LogoutViewModel logoutViewModel)
+        {
+            var result = await _repository.RemoveTokenAsync(logoutViewModel.Token);
+
+            if(result == null)
+            {
+                return new LogoutResultViewModel(false, "Server error.");
+            }
+
+            return new LogoutResultViewModel(true);
         }
 
         public async Task<RegisterResultViewModel> RegisterUserAsync(RegisterViewModel addUserViewModel)
