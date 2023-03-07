@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <Folder Include="AngularApp\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Auth.EF_Core\Auth.EF_Core.csproj" />
+    <ProjectReference Include="..\Auth.Infra\Auth.Infra.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TokenDataModel } from './viewModels';
 
+import jwt_decode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,28 +15,35 @@ export class ParseJWTService {
     var token = localStorage.getItem("token");
     if(token == null || token == undefined || token === ""){
       return new Observable<TokenDataModel>(subscriber => {
+        subscriber.next(undefined);
         subscriber.complete();
-      })
+      });
     }
 
     var user = new TokenDataModel();
 
     var data = jwt_decode(token) as any;
-    console.log(data);
 
-    user.name = data.name;
-    user.surname = data.surname;
+    var date = data.exp * 1000;
+
+    if(new Date() > new Date(date)){
+      return new Observable<TokenDataModel>(subscriber => {
+        subscriber.next(undefined);
+        subscriber.complete();
+      });
+    }
+
+    user.token = token;
+    user.name = data.unique_name;
+    user.surname = data.family_name;
     user.email = data.email;
     user.phone = data.phone;
-    user.expired = data.exp;
+    user.expired = new Date(date);
 
     return new Observable<TokenDataModel>(subscriber => {
       subscriber.next(user);
       subscriber.complete();
     })
   }
-}
-function jwt_decode(token: string): any {
-  throw new Error('Function not implemented.');
 }
 

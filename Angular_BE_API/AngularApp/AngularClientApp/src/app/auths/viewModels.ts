@@ -46,7 +46,7 @@ export class LogoutResultViewModel {
 }
 
 export class TokenDataModel {
-
+    public token: string;
     public name: string;
     public surname: string;
     public email: string;

@@ -1,0 +1,10 @@
+div.alert-danger{
+    color: rgb(255, 89, 89);
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+input.invalid{
+    background-color: rgb(255, 211, 211);
+    border-color: rgb(247, 178, 178);
+}

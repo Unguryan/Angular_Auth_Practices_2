@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -19,8 +20,13 @@ export class LoginComponent implements OnInit {
   emailSelected: boolean = true;
 
   pending: boolean = false;
+
+  loginError: string;
+  isLoginSuccess: boolean = false;
   
-  constructor(private bd: FormBuilder, private authService: AuthService){
+  constructor(private bd: FormBuilder, 
+              private authService: AuthService,
+              private router: Router){
 
   }
 
@@ -30,28 +36,32 @@ export class LoginComponent implements OnInit {
   }
 
   OnSubmit(){
-    console.dir(this.loginForm);
-
     this.pending = true;
 
     this.authService.LoginUser(this.loginForm.value).subscribe(resp => {
       this.pending = false;
       if(resp.isSuccess){
         localStorage.setItem("token", resp.token);
-
-        alert("success");
+        
+        this.isLoginSuccess = true;
+        setTimeout(()=>{
+          this.router.navigate(["/"]);
+          window.location.reload();
+        }, 5000);
       }
       else{
         localStorage.removeItem("token");
-
-        alert(`fail ${resp.errorMessage}`);
+        console.log("login - remove");
+        this.loginError = resp.errorMessage!;
       }
     },
     error => {
-      alert("server fail");
-    },
-    );
-
+      this.pending = false;
+      this.loginError = "server fail";
+      setTimeout(()=>{
+        window.location.reload();
+      }, 3000);
+    });
   }
 
   CreateControls() {
@@ -75,29 +85,20 @@ export class LoginComponent implements OnInit {
     switch(element.id){
       case "EmailRadio1":
         this.emailSelected = true;
-        console.log(element.id + this.emailSelected);
-
         this.emailControl.addValidators([Validators.required, Validators.email]);
-
         this.phoneControl.patchValue("", {emitEvent: false});
         this.phoneControl.clearValidators();
         this.phoneControl.updateValueAndValidity();
         this.phoneControl.markAsUntouched();
 
-        console.dir(this.loginForm.controls);
         return;
       case "PhoneRadio1":
         this.emailSelected = false;
-        console.log(element.id + this.emailSelected);
-
         this.phoneControl.addValidators([Validators.required]);
-
         this.emailControl.patchValue("", {emitEvent: false});
         this.emailControl.clearValidators();
         this.emailControl.updateValueAndValidity();
         this.emailControl.markAsUntouched();
-
-        console.dir(this.loginForm.controls);
         return;
     }
   }

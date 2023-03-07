@@ -4,3 +4,9 @@ a.navbar-brand-text{
     padding-bottom: 0px;
     margin-right: 0px;
 }
+
+div.alert-text{
+    position: fixed;
+    display: flex;
+    flex-flow: column;
+}

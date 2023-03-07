@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center mt-3">
+<div *ngIf="!isLoginSuccess && !loginError" class="d-flex justify-content-center mt-3">
     <form (ngSubmit)="OnSubmit()" [formGroup]="loginForm">
         
         <!-- radioBtns -->
@@ -13,8 +13,8 @@
 
         <!-- email -->
         <div class="mb-3" *ngIf="emailSelected">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <label for="inputEmail1" class="form-label">Email address</label>
+            <input formControlName="email" type="email" class="form-control" id="inputEmail1"
             [ngClass]="{invalid: emailControl.touched && emailControl.invalid}">
             <div class="alert-danger"
             *ngIf="emailControl.touched && emailControl.getError('required')">
@@ -29,7 +29,7 @@
         <!-- phone -->
         <div class="mb-3" *ngIf="!emailSelected">
             <label for="inputPhone1" class="form-label">Phone</label>
-            <input formControlName="phone" type="phone" class="form-control" id="inputPhone1" aria-describedby="phoneHelp"
+            <input formControlName="phone" type="phone" class="form-control" id="inputPhone1"
             [ngClass]="{invalid: phoneControl.touched && phoneControl.invalid}">
             <div class="alert-danger"
             *ngIf="phoneControl.touched && phoneControl.getError('required')">
@@ -62,3 +62,13 @@
         <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid || pending">Login</button>
     </form>
 </div>
+
+<div *ngIf="isLoginSuccess" class="d-column-flex text-center mt-3">
+    <div class="text-success fs-3 fw-bolder">Login Success</div>
+    <div class="text-success fs-6 fw-semibold">You will be redirected within 5 seconds</div>
+</div>
+
+<div *ngIf="!isLoginSuccess && loginError" class="d-column-flex text-center mt-3">
+    <div class="text-danger fs-3 fw-bolder">{{loginError}}</div>
+</div>
+

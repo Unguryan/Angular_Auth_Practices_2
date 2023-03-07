@@ -1,1 +1,103 @@
-<p>register works!</p>
+<div *ngIf="!isRegisterSuccess && !regError" class="d-flex justify-content-center mt-3">
+    <form (ngSubmit)="OnSubmit()" [formGroup]="regForm">
+        
+        <!-- first name -->
+        <div class="mb-3">
+            <label for="inputFirstName1" class="form-label">First name</label>
+            <input formControlName="name" type="text" class="form-control" id="inputFirstName1" 
+            [ngClass]="{invalid: firstNameControl.touched && firstNameControl.invalid}">
+            <div class="alert-danger"
+            *ngIf="firstNameControl.touched && firstNameControl.getError('required')">
+                Required
+            </div>
+        </div>
+
+        <!-- last name -->
+        <div class="mb-3">
+            <label for="inputLastName1" class="form-label">Last name</label>
+            <input formControlName="surname" type="text" class="form-control" id="inputLastName1" 
+            [ngClass]="{invalid: lastNameControl.touched && lastNameControl.invalid}">
+            <div class="alert-danger"
+            *ngIf="lastNameControl.touched && lastNameControl.getError('required')">
+                Required
+            </div>
+        </div>
+
+        <!-- email -->
+        <div class="mb-3">
+            <label for="inputEmail1" class="form-label">Email address</label>
+            <input formControlName="email" type="text" class="form-control" id="inputEmail1" 
+            [ngClass]="{invalid: emailControl.touched && emailControl.invalid}">
+            <div class="alert-danger"
+            *ngIf="emailControl.touched && emailControl.getError('required')">
+                Required
+            </div>
+            <div class="alert-danger"
+            *ngIf="emailControl.touched && emailControl.getError('email')">
+                Email did not match
+            </div>
+        </div>
+
+        <!-- phone -->
+        <div class="mb-3">
+            <label for="inputPhone1" class="form-label">Phone</label>
+            <input formControlName="phone" type="text" class="form-control" id="inputPhone1" 
+            [ngClass]="{invalid: phoneControl.touched && phoneControl.invalid}">
+            <div class="alert-danger"
+            *ngIf="phoneControl.touched && phoneControl.getError('required')">
+                Required
+            </div>
+        </div>
+
+        <!-- password -->
+        <div class="mb-3">
+            <label for="inputPassword1" class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="inputPassword1"
+            [ngClass]="{invalid: passwordControl.touched && passwordControl.invalid}">
+
+            <div class="alert-danger"
+            *ngIf="passwordControl.touched && passwordControl.getError('required')">
+                Required
+            </div>
+
+            <div class="alert-danger"
+            *ngIf="passwordControl.touched && passwordControl.getError('minlength')">
+                Min Length is 8
+            </div>
+        </div>
+
+        <!-- password confirm-->
+        <div class="mb-3">
+            <label for="inputPassword1" class="form-label">Confirm Password</label>
+            <input formControlName="passwordConfirm" type="password" class="form-control" id="inputPassword1"
+            [ngClass]="{invalid: passwordConfirmControl.touched && passwordConfirmControl.invalid}">
+
+            <div class="alert-danger"
+            *ngIf="passwordConfirmControl.touched && passwordConfirmControl.getError('required')">
+                Required
+            </div>
+
+            <div class="alert-danger"
+            *ngIf="passwordConfirmControl.touched && passwordConfirmControl.getError('minlength')">
+                Min Length is 8
+            </div>
+
+            <div class="alert-danger"
+            *ngIf="passwordConfirmControl.touched && passwordConfirmControl.getError('matched')">
+                Passwords should match
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="regForm.invalid || pending">Register</button>
+    </form>
+</div>
+
+<div *ngIf="isRegisterSuccess" class="d-column-flex text-center mt-3">
+    <div class="text-success fs-3 fw-bolder">Register Success</div>
+    <div class="text-success fs-6 fw-semibold">You will be redirected within 5 seconds</div>
+</div>
+
+<div *ngIf="!isRegisterSuccess && regError" class="d-column-flex text-center mt-3">
+    <div class="text-danger fs-3 fw-bolder">{{regError}}</div>
+</div>
+

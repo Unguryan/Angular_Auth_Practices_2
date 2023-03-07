@@ -1,13 +1,26 @@
 
 <div class="navbar-dark bg-dark">
 
-    <div *ngIf="!userName">
+    <div *ngIf="!user">
         <button class="btn btn-primary" routerLink="/login">Log In</button>
         <button class="btn btn-primary ms-2" routerLink="/register">Register</button>
     </div>
 
-    <div *ngIf="userName">
-        <a class="navbar-brand navbar-brand-text">{{userName}}</a>
+    <div *ngIf="user">
+        <a class="navbar-brand navbar-brand-text">{{user.name}} {{user.surname}}</a>
         <button class="btn btn-secondary ms-2" (click)="LogOut()">Log Out</button>
     </div>
 </div>
+
+<div class="text-center alert-text">
+    <div *ngIf="isLogOutSuccess" class="d-column-flex text-center mt-3">
+        <div class="text-success fs-3 fw-bolder">Logout Success</div>
+        <div class="text-success fs-6 fw-semibold">You will be redirected within 5 seconds</div>
+    </div>
+    
+    <div *ngIf="!isLogOutSuccess && logOutError" class="d-column-flex text-center mt-3">
+        <div class="text-danger fs-3 fw-bolder">{{logOutError}}</div>
+    </div>
+</div>
+
+
