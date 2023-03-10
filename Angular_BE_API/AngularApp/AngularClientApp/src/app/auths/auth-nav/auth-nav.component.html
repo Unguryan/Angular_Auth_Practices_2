@@ -7,7 +7,7 @@
     </div>
 
     <div *ngIf="user">
-        <a class="navbar-brand navbar-brand-text">{{user.name}} {{user.surname}}</a>
+        <a class="navbar-brand navbar-brand-text" routerLink="/admin">{{user.name}} {{user.surname}}</a>
         <button class="btn btn-secondary ms-2" (click)="LogOut()">Log Out</button>
     </div>
 </div>

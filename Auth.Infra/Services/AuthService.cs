@@ -51,6 +51,11 @@ namespace Auth.Infra.Services
 
         public async Task<LoginResultViewModel> LoginByPhoneAsync(string phone, string password, bool remember)
         {
+            if (phone.Contains("-"))
+            {
+                phone = phone.Replace("-", "");
+            }
+
             var user = await _repository.GetUserByPhoneAsync(phone);
 
             if (user == null)

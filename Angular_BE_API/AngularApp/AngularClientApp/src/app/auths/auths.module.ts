@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { HomeComponent } from './home/home.component';
+import { PhoneDerDirective } from './phone/phone-der.directive';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     AdminPanelComponent,
     HomeComponent,
+    PhoneDerDirective,
   ],
   imports: [
     CommonModule,

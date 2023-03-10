@@ -1,1 +1,37 @@
 <p>admin-panel works!</p>
+
+<div *ngIf="user != undefined" class="d-flex justify-content-center mt-3">
+        <div class="flex-column border border-success border-1 rounded p-2">
+            <label class="fw-bold fs-3 mb-2 border-bottom border-dark">User Data</label>
+            
+        <!-- first name -->
+        <div class="mb-3">
+            <label class="fw-bolder me-2">First name:</label>
+            <label>{{user.name}}</label>
+        </div>
+
+        <!-- last name -->
+        <div class="mb-3">
+            <label class="fw-bolder me-2">Last name:</label>
+            <label>{{user.surname}}</label>
+        </div>
+
+        <!-- email -->
+        <div class="mb-3">
+            <label class="fw-bolder me-2">Email address:</label>
+            <label >{{user.email}}</label>
+        </div>
+
+        <!-- phone -->
+        <div class="mb-3">
+            <label class="fw-bolder me-2">Phone:</label>
+            <label >{{user.phone}}</label>
+        </div>
+
+    </div>
+
+</div>
+
+<div *ngIf="user == undefined">
+    <label class="alert-danger">User is undefined. Relogin please.</label>
+</div>

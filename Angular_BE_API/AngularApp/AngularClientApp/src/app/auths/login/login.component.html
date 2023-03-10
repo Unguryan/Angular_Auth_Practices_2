@@ -29,11 +29,15 @@
         <!-- phone -->
         <div class="mb-3" *ngIf="!emailSelected">
             <label for="inputPhone1" class="form-label">Phone</label>
-            <input formControlName="phone" type="phone" class="form-control" id="inputPhone1"
+            <input appPhoneDer formControlName="phone" type="phone" class="form-control" id="inputPhone1"
             [ngClass]="{invalid: phoneControl.touched && phoneControl.invalid}">
             <div class="alert-danger"
             *ngIf="phoneControl.touched && phoneControl.getError('required')">
                 Required
+            </div>
+            <div class="alert-danger"
+            *ngIf="phoneControl.touched && phoneControl.getError('phone')">
+                Not Match. Example: 000-000-0000
             </div>
         </div>
 
@@ -59,7 +63,9 @@
             <label class="form-check-label" for="rememberMeCheck1">Remember?</label>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid || pending">Login</button>
+        <button type="submit" class="btn btn-success" 
+        [disabled]="loginForm.invalid || pending"
+        >Login</button>
     </form>
 </div>
 

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { phoneValidator } from '../phone/phone.validator';
 
 @Component({
   selector: 'app-login',
@@ -53,6 +54,9 @@ export class LoginComponent implements OnInit {
       else{
         localStorage.removeItem('token');
         this.loginError = resp.errorMessage!;
+        setTimeout(()=>{
+          window.location.reload();
+        }, 3000);
       }
     },
     error => {
@@ -85,20 +89,23 @@ export class LoginComponent implements OnInit {
     switch(element.id){
       case "EmailRadio1":
         this.emailSelected = true;
-        this.emailControl.addValidators([Validators.required, Validators.email]);
-        this.phoneControl.patchValue("", {emitEvent: false});
         this.phoneControl.clearValidators();
         this.phoneControl.updateValueAndValidity();
-        this.phoneControl.markAsUntouched();
 
+        this.emailControl.addValidators([Validators.required, Validators.email]);
+        this.emailControl.patchValue("", {emitEvent: false});
+        this.emailControl.markAsUntouched();
+        this.emailControl.updateValueAndValidity();
         return;
       case "PhoneRadio1":
         this.emailSelected = false;
-        this.phoneControl.addValidators([Validators.required]);
-        this.emailControl.patchValue("", {emitEvent: false});
         this.emailControl.clearValidators();
         this.emailControl.updateValueAndValidity();
-        this.emailControl.markAsUntouched();
+
+        this.phoneControl.addValidators([Validators.required, phoneValidator]);
+        this.phoneControl.patchValue("", {emitEvent: false});
+        this.phoneControl.markAsUntouched();
+        this.phoneControl.updateValueAndValidity();
         return;
     }
   }
